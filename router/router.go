@@ -85,42 +85,42 @@ func InitRouter() {
 		apiv1.POST("/cmdb/sftp/mkdir", api.SftpCreateDirectory)
 		apiv1.POST("/cmdb/sftp/delete", api.SftpDeletePath)
 
-		apiv1.POST("/script/addScript", api.AddScript)
-		apiv1.POST("/script/getScript", api.GetScript)
-		apiv1.POST("/script/editScript", api.EditScript)
-		apiv1.POST("/script/delScript", api.DelScript)
-
-		apiv1.POST("/etcd/etcdGetall", api.EtcdGetall)
-		apiv1.POST("/etcd/Etcdrestore", api.Etcdrestore)
-
-		apiv1.POST("/etcd/getEtcd", api.GetEtcd)
-		apiv1.POST("/etcd/addEtcd", api.AddEtcd)
-
-		apiv1.POST("/etcd/editEtcd", api.EditEtcd)
-		apiv1.POST("/etcd/delEtcd", api.DelEtcd)
-
-		apiv1.POST("/etcd/getEtcdbak", api.GetEtcdbak)
-		apiv1.POST("/etcd/delEtcdbak", api.DelEtcdbak)
-		apiv1.POST("/etcd/addEtcdbak", api.AddEtcdbak)
-
-		apiv1.POST("/job/addJob", api.AddJob)
-		apiv1.POST("/job/getJob", api.GetJob)
-		apiv1.POST("/job/editJob", api.EditJob)
-		apiv1.POST("/job/delJob", api.DelJob)
-		apiv1.POST("/job/CheckJobgroup", api.CheckJobgroup)
-		apiv1.POST("/job/NewCustomAPI", api.NewCustomAPI)
-		apiv1.POST("/job/flowAPI", api.FlowAPI)
-
-		//apiv1.POST("/kube/config/addconfig", api.AddKubeConfig)
-		//apiv1.POST("/kube/config/getconfig", api.GetKubeConfig)
-		//apiv1.POST("/kube/config/editconfig", api.EditKubeConfig)
-		//apiv1.POST("/kube/config/delconfig", api.DelKubeConfig)
-
-		apiv1.POST("/job/Group/addJobGroup", api.AddJobGroup)
-		apiv1.POST("/job/Group/GetJobGroup", api.GetJobGroup)
-		apiv1.POST("/job/Group/EditJobGroup", api.EditJobGroup)
-		apiv1.POST("/job/Group/DelJobGroup", api.DelJobGroup)
-		apiv1.POST("/job/Group/GetSearchJobGroup", api.GetSearchJobGroup)
+		//apiv1.POST("/script/addScript", api.AddScript)
+		//apiv1.POST("/script/getScript", api.GetScript)
+		//apiv1.POST("/script/editScript", api.EditScript)
+		//apiv1.POST("/script/delScript", api.DelScript)
+		//
+		//apiv1.POST("/etcd/etcdGetall", api.EtcdGetall)
+		//apiv1.POST("/etcd/Etcdrestore", api.Etcdrestore)
+		//
+		//apiv1.POST("/etcd/getEtcd", api.GetEtcd)
+		//apiv1.POST("/etcd/addEtcd", api.AddEtcd)
+		//
+		//apiv1.POST("/etcd/editEtcd", api.EditEtcd)
+		//apiv1.POST("/etcd/delEtcd", api.DelEtcd)
+		//
+		//apiv1.POST("/etcd/getEtcdbak", api.GetEtcdbak)
+		//apiv1.POST("/etcd/delEtcdbak", api.DelEtcdbak)
+		//apiv1.POST("/etcd/addEtcdbak", api.AddEtcdbak)
+		//
+		//apiv1.POST("/job/addJob", api.AddJob)
+		//apiv1.POST("/job/getJob", api.GetJob)
+		//apiv1.POST("/job/editJob", api.EditJob)
+		//apiv1.POST("/job/delJob", api.DelJob)
+		//apiv1.POST("/job/CheckJobgroup", api.CheckJobgroup)
+		//apiv1.POST("/job/NewCustomAPI", api.NewCustomAPI)
+		//apiv1.POST("/job/flowAPI", api.FlowAPI)
+		//
+		////apiv1.POST("/kube/config/addconfig", api.AddKubeConfig)
+		////apiv1.POST("/kube/config/getconfig", api.GetKubeConfig)
+		////apiv1.POST("/kube/config/editconfig", api.EditKubeConfig)
+		////apiv1.POST("/kube/config/delconfig", api.DelKubeConfig)
+		//
+		//apiv1.POST("/job/Group/addJobGroup", api.AddJobGroup)
+		//apiv1.POST("/job/Group/GetJobGroup", api.GetJobGroup)
+		//apiv1.POST("/job/Group/EditJobGroup", api.EditJobGroup)
+		//apiv1.POST("/job/Group/DelJobGroup", api.DelJobGroup)
+		//apiv1.POST("/job/Group/GetSearchJobGroup", api.GetSearchJobGroup)
 
 	}
 	adminuser := r.Group("/api/admin/user")

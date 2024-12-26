@@ -67,6 +67,10 @@ git clone https://github.com/ch-ld/go-cmdb-ops
     ├─msg           状态码
     ├─result        状态码封装
     └─ssh           ssh
+
+cd go-cmdb-ops
+go mod tidy
+go build go-cmdb-ops
 ```
 
 
