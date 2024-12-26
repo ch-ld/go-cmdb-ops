@@ -1,45 +1,51 @@
-<p align="center">
-  <a href="https://github.com/qishu321/cmdb-ops-flow">
-    <img src="https://avatars.githubusercontent.com/u/95009146?s=400&u=0984e6a6a761fa007f6ad459abbb1ee9786424b8&v=4" alt="Logo" width="180" height="180">
-  </a>
 
-  <h1 align="center">cmdb-ops-flow</h1>
+
+  <h1 align="center">go-cmdb-ops</h1>
   <p align="center">
-   本项目使用gin、gorm和ssh开发。旨在编写一个轻量，易用，多平台的运维项目。
+ 此项目架构完全参考cmdb-ops-flow，是cmdb-ops-flow的优化版本，完成了此版本的一些功能新增和优化。
     <br />
      <br />
-      #### 新版本地址： https://github.com/qishu321/CatMi-devops
+    本项目后端参考： https://github.com/qishu321/cmdb-ops-flow
+	<br />
+	此项目前端地址： https://github.com/ch-ld/go-cmdb-ops-web
 
   </p>
     <br />
+
 ## 技术栈 
 
 #### 后端 Golang 1.19
 
 - Gin 1.9.1             [(Web框架)](https://gin-gonic.com/zh-cn/)
 - GORM v1.9.16     [(ORM)](https://gorm.io/zh_CN/)
-- MySQL 5.7             [(数据库)](https://www.mysql.com/)
+- MySQL 8.0             [(数据库)](https://www.mysql.com/)
 
 #### 前端 Vue.js 3
 
 - vue-admin-template                     [(后台前端)](http://panjiachen.github.io/vue-admin-template)
 
 #### 已实现的功能
-- webssh
-- cmdb
-- 用户管理
-- 批量命令或者脚本执行
-- 简单的工作流执行
-- etcd的备份和回档
-- k8s的多集群管理
-- 基于go实现Prometheus企微机器人告警
-```bash
-##k8s的多集群管理
-- 目前实现的功能：
-kubeconfig的管理，存储到数据库里，然后根据这个实现多集群的管理，多集群可以任意切换
-web创建namespace、svc；web查看pod的日志、web查看pod的yaml、webssh登录pod、web获取集群监控汇总详情等
-Prometheus企微机器人告警
-```
+- [x] 内部导航栏
+- [x] 用户中心
+  - [x] 用户管理
+  - [x] 角色管理
+- [x] CMDB
+  - [x] 主机管理
+    - [x] 新增主机
+    - [x] 导入主机
+    - [x] 同步云主机
+      - [ ] 阿里云
+      - [ ] AWS
+  - [x] 主机组管理
+  - [x] 远程操作
+    - [x] wehssh
+    - [x] 批量执行命令
+    - [x] SFTP
+      - [x] 文件上传
+      - [x] 创建文件
+      - [x] 文件下载
+      - [x] 文件批量删除
+- [ ] k8s的多集群管理
 
 ## 部署方法
 
@@ -47,7 +53,7 @@ Prometheus企微机器人告警
 
 ```go
 # clone
-git clone https://github.com/qishu321/cmdb-ops-flow.git
+git clone https://github.com/ch-ld/go-cmdb-ops
 ##整体目录结构
 ├─api               api
 ├─conf              配置文件
@@ -61,9 +67,6 @@ git clone https://github.com/qishu321/cmdb-ops-flow.git
     ├─msg           状态码
     ├─result        状态码封装
     └─ssh           ssh
-
-
-
 ```
 
 
@@ -82,34 +85,9 @@ git clone https://github.com/qishu321/cmdb-ops-flow.git
 
 该项目使用Git进行版本管理。您可以在repository参看当前可用版本。
 
-### 联系方式
-## 预览
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/kube-config.png?raw=true" style="zoom: 25%;" />
+### 作者
 
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/wx-alert.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/getpodyaml.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/webssh_pod.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/pod_log.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/kube-dashboard.png?raw=true" style="zoom: 25%;" />
-
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/cmdb.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/etcdrestore.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/webssh2.png?raw=true" style="zoom:25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C.png?raw=true" style="zoom:25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/%E4%BD%9C%E4%B8%9A%E6%A8%A1%E6%9D%BF.png?raw=true" style="zoom:25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/%E4%BD%9C%E4%B8%9A%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.png?raw=true" style="zoom: 25%;" />
-
-<img src="https://github.com/qishu321/cmdb-ops-flow/blob/main/doc/%E8%84%9A%E6%9C%AC%E5%BA%93.png?raw=true" style="zoom: 25%;" />
+暂无
 
 
 ### 版权说明
@@ -117,6 +95,8 @@ git clone https://github.com/qishu321/cmdb-ops-flow.git
 该项目签署了MIT 授权许可
 
 ### 鸣谢
+
+[cmdb-ops-flow](https://github.com/qishu321/cmdb-ops-flow) 强烈感谢cmdb-ops-flow提供的基本框架，开始所有的流程和思路都是基于这个基础之上来配置的
 
 [vue-admin-template](http://panjiachen.github.io/vue-admin-template) 非常感谢vue-admin-template的开源项目
 

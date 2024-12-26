@@ -22,4 +22,3 @@ func (result *Result) Error(code int, data interface{}, msg string) *Result {
 	result.Msg = msg
 	return result
 }
-

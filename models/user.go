@@ -15,10 +15,11 @@ type User struct {
 	Token        string
 	Role         int       `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 	ExpirationAt time.Time `gorm:"default:CURRENT_TIMESTAMP",json:"created_at"`
+
+	Roles []Role `gorm:"many2many:user_roles;"`
 }
 
 func AddUser(user User) (interface{}, error) {
-
 	err := db.Create(&user).Error
 	return user, err
 }
@@ -87,11 +88,35 @@ func UpdateTokenTime(token string, expiration_at string) (err error) {
 
 func Info(token string) (data interface{}, err error) {
 	type Result struct {
-		Username string
-		Avatar   string
+		Username  string
+		Avatar    string
+		RoleNames []string
+		Menus     []Menu
 	}
+
+	user := User{}
+	if err := db.Preload("Roles").Where("token = ?", token).Find(&user).Error; err != nil {
+		return nil, err
+	}
+
+	menus := []Menu{}
+	db.Find(&menus)
+	// 构建菜单树
+	menuTree := buildMenuTree(menus)
+
 	var result Result
-	db.Debug().Table("user").Select("username, avatar").Where("token = ? ", token).Scan(&result)
+	result.Username = user.Username
+	result.Avatar = user.Avatar
+	// 构建包含所有角色名称的切片
+	var roleNames []string
+	for _, role := range user.Roles {
+		roleNames = append(roleNames, role.RoleName)
+	}
+	result.RoleNames = roleNames
+	result.Menus = menuTree
+
+	//result.Roles = user.Roles
+	//db.Debug().Table("user").Select("username, avatar").Where("token = ? ", token).Scan(&result)
 	return result, nil
 }
 func Logout(token string) (err error) {
@@ -109,3 +134,19 @@ func Logout(token string) (err error) {
 //	}
 //	return msg.SUCCSE, err
 //}
+
+func buildMenuTree(menus []Menu) []Menu {
+	tree := make(map[uint][]Menu)
+
+	for _, menu := range menus {
+		tree[menu.ParentID] = append(tree[menu.ParentID], menu)
+	}
+
+	var result []Menu
+	for _, menu := range tree[0] { // 假设顶层菜单的 ParentID 为 0
+		menu.Children = tree[menu.MenuId]
+		result = append(result, menu)
+	}
+
+	return result
+}

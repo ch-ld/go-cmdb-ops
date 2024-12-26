@@ -26,7 +26,7 @@ func SshCommand(conf *SSHClientConfig, command string) (string, error) {
 		User:            conf.UserName,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // 忽略know_hosts检查
 	}
-	switch conf.AuthModel {
+	switch strings.ToUpper(conf.AuthModel) {
 	case "PASSWORD":
 		config.Auth = []ssh.AuthMethod{ssh.Password(conf.Password)}
 	case "PUBLICKEY":

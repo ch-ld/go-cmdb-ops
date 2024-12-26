@@ -12,7 +12,7 @@ import (
 func Token() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		token := context.Request.Header.Get("X-Token")
-		//fmt.Println("Token value:", token) // 在这里打印 Token 的值
+		fmt.Println("Token value:", token) // 在这里打印 Token 的值
 		//fmt.Println(token)
 		token_exsits, err := models.TokenInfo(token)
 		if err != nil {

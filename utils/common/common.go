@@ -75,9 +75,9 @@ func Decrypt(key []byte, ciphertext string) (string, error) {
 		return "", err
 	}
 
-	if len(decodedCipherText) < aes.BlockSize {
-		return "", fmt.Errorf("加密数据长度错误")
-	}
+	//if len(decodedCipherText) < aes.BlockSize {
+	//	return "", fmt.Errorf("解密数据长度错误")
+	//}
 
 	iv := decodedCipherText[:aes.BlockSize]
 	decodedCipherText = decodedCipherText[aes.BlockSize:]

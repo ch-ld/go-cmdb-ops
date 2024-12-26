@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 	"golang.org/x/crypto/ssh"
 	"io"
+	"strings"
 )
 
 func NewSSHClient(conf *SSHClientConfig) (*ssh.Client, error) {
@@ -16,7 +17,7 @@ func NewSSHClient(conf *SSHClientConfig) (*ssh.Client, error) {
 		User:            conf.UserName,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(), //忽略know_hosts检查
 	}
-	switch conf.AuthModel {
+	switch strings.ToUpper(conf.AuthModel) {
 	case "PASSWORD":
 		config.Auth = []ssh.AuthMethod{ssh.Password(conf.Password)}
 	case "PUBLICKEY":
@@ -25,6 +26,8 @@ func NewSSHClient(conf *SSHClientConfig) (*ssh.Client, error) {
 			return nil, err
 		}
 		config.Auth = []ssh.AuthMethod{ssh.PublicKeys(signer)}
+	default:
+		fmt.Println("AuthModel is not supported")
 	}
 	c, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", conf.IP, conf.Port), config)
 	if err != nil {
@@ -37,6 +40,9 @@ type Turn struct {
 	StdinPipe io.WriteCloser
 	Session   *ssh.Session
 	WsConn    *websocket.Conn
+	//Width     uint16
+	//Height    uint16
+	//mu        sync.Mutex
 }
 
 func NewTurn(wsConn *websocket.Conn, sshClient *ssh.Client) (*Turn, error) {
@@ -49,6 +55,15 @@ func NewTurn(wsConn *websocket.Conn, sshClient *ssh.Client) (*Turn, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	//// 设置伪终端
+	//if err := sess.RequestPty("xterm", 30, 100, ssh.TerminalModes{
+	//	ssh.ECHO:          1,
+	//	ssh.TTY_OP_ISPEED: 14400,
+	//	ssh.TTY_OP_OSPEED: 14400,
+	//}); err != nil {
+	//	return nil, err
+	//}
 
 	turn := &Turn{StdinPipe: stdinPipe, Session: sess, WsConn: wsConn}
 	sess.Stdout = turn
@@ -66,7 +81,11 @@ func NewTurn(wsConn *websocket.Conn, sshClient *ssh.Client) (*Turn, error) {
 		return nil, err
 	}
 
-	return turn, nil
+	return &Turn{
+		StdinPipe: stdinPipe,
+		Session:   sess,
+		WsConn:    wsConn,
+	}, nil
 }
 func (t *Turn) Write(p []byte) (n int, err error) {
 	writer, err := t.WsConn.NextWriter(websocket.TextMessage)
@@ -98,6 +117,7 @@ func (t *Turn) Read(p []byte) (n int, err error) {
 		return reader.Read(p)
 	}
 }
+
 func (t *Turn) LoopRead(context context.Context) error {
 	for {
 		select {

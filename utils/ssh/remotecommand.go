@@ -4,13 +4,14 @@ import (
 	"cmdb-ops-flow/conf"
 	"cmdb-ops-flow/models"
 	"cmdb-ops-flow/utils/common"
+	"encoding/base64"
 	"fmt"
 	"time"
 )
 
 func CreateRemoteFile(script *models.ScriptManager, cmdb *models.Cmdb) (string, error) {
 	// 构造请求参数
-	key := []byte(conf.Encryptkey)
+	key, err := base64.StdEncoding.DecodeString(conf.Encryptkey)
 	password, err := common.Decrypt(key, cmdb.Password)
 	if err != nil {
 		fmt.Println("解密失败:", err)
@@ -37,7 +38,7 @@ func CreateRemoteFile(script *models.ScriptManager, cmdb *models.Cmdb) (string, 
 
 func ExecuteRemoteCommand(script *models.ScriptManager, cmdb *models.Cmdb) (string, error) {
 	// 构造请求参数
-	key := []byte(conf.Encryptkey)
+	key, err := base64.StdEncoding.DecodeString(conf.Encryptkey)
 	password, error := common.Decrypt(key, cmdb.Password)
 	if error != nil {
 		fmt.Println("解密失败:", error)

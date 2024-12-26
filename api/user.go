@@ -5,6 +5,7 @@ import (
 	"cmdb-ops-flow/service"
 	"cmdb-ops-flow/utils/msg"
 	"cmdb-ops-flow/utils/result"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -24,7 +25,6 @@ func AddUser(c *gin.Context) {
 		service.AddUser(data)
 	}
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(code, data, msg.GetErrMsg(code)))
-
 }
 
 func DelUser(c *gin.Context) {
@@ -36,7 +36,6 @@ func DelUser(c *gin.Context) {
 	code := models.DelUser(data.Userid)
 
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(code, data, msg.GetErrMsg(code)))
-
 }
 
 func GetUser(c *gin.Context) {
@@ -86,6 +85,7 @@ func Login(c *gin.Context) {
 
 func Info(c *gin.Context) {
 	token := c.MustGet("token").(string)
+	fmt.Println("token: ", token)
 	data, err := service.Info(token)
 	if err != nil {
 		c.JSON(http.StatusOK, (&result.Result{}).Error(msg.ERROR_USER_NO_LOGIN, err.Error(), msg.GetErrMsg(msg.ERROR_USER_NO_LOGIN)))

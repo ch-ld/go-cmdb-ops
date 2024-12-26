@@ -5,6 +5,7 @@ import (
 	"cmdb-ops-flow/utils/common"
 	"cmdb-ops-flow/utils/ssh"
 	"context"
+	"encoding/base64"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -24,15 +25,6 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-//type Query struct {
-//	UserName  string `form:"username" binding:"required"`
-//	Password  string `form:"password"`
-//	IP        string `form:"ip" binding:"required"`
-//	Port      int    `form:"port" binding:"required"`
-//	Command   string `form:"command" binding:"required"`
-//	AuthModel string `form:"authmodel" binding:"required"`
-//}
-
 func VisitorWebsocketServer(c *gin.Context) {
 	ip := c.Query("ip")
 	port := c.Query("port")
@@ -48,7 +40,7 @@ func VisitorWebsocketServer(c *gin.Context) {
 	defer wsConn.Close()
 
 	port1, _ := strconv.Atoi(port)
-	key := []byte(conf.Encryptkey)
+	key, err := base64.StdEncoding.DecodeString(conf.Encryptkey)
 
 	password, err := common.Decrypt(key, Password)
 	if err != nil {
@@ -57,7 +49,6 @@ func VisitorWebsocketServer(c *gin.Context) {
 	}
 	fmt.Println(password)
 	config := &ssh.SSHClientConfig{
-
 		Timeout:   time.Second * 5,
 		IP:        ip,
 		Port:      port1,
@@ -68,7 +59,7 @@ func VisitorWebsocketServer(c *gin.Context) {
 	sshClient, err := ssh.NewSSHClient(config)
 	if err != nil {
 		wsConn.WriteControl(websocket.CloseMessage,
-			[]byte(err.Error()), time.Now().Add(time.Second))
+			[]byte(err.Error()), time.Now().Add(time.Second*5))
 		return
 	}
 	defer sshClient.Close()

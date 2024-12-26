@@ -15,7 +15,6 @@ import (
 func InitRouter() {
 	gin.SetMode(conf.AppMode)
 	r := gin.Default()
-	//fmt.Println(utils.HttpPort)
 	r.Use(middleware.Cors())
 
 	s := &http.Server{
@@ -39,6 +38,7 @@ func InitRouter() {
 	apiv1 := r.Group("api")
 	apiv1.Use(middleware.Token())
 	{
+		//用户管理
 		apiv1.POST("/user/addUser", api.AddUser)
 		apiv1.POST("/user/delUser", api.DelUser)
 		apiv1.POST("/user/getUser", api.GetUser)
@@ -46,16 +46,44 @@ func InitRouter() {
 		apiv1.POST("/user/logout", api.Logout)
 		apiv1.POST("/user/info", api.Info)
 
-		apiv1.POST("/cmdb/addCmdb", api.AddCmdb)
-		apiv1.POST("/cmdb/getCmdb", api.GetCmdb)
-		apiv1.POST("/cmdb/editCmdb", api.EditCmdb)
-		apiv1.POST("/cmdb/delCmdb", api.DelCmdb)
-		apiv1.POST("/cmdb/GetSearchCmdb", api.GetSearchCmdb)
+		// 角色管理
+		apiv1.GET("/user/getRole", api.GetRole)
+		apiv1.POST("/user/delRole", api.DelRole)
+		apiv1.POST("/user/addRole", api.AddRole)
 
+		// 导航栏系统
+		apiv1.GET("/home/navigation", api.GetNavigationRecords)
+		apiv1.POST("/home/navigation", api.CreateNavigationRecord)
+		apiv1.PUT("/home/navigation", api.UpdateNavigationRecord)
+		apiv1.DELETE("/home/navigation", api.DeleteNavigationRecord)
+		apiv1.POST("/home/sortNavigation", api.SortNavigation)
+
+		// 主机组管理
+		apiv1.GET("/cmdb/host-groups", api.HostGroupList)
+		apiv1.POST("/cmdb/host-groups", api.HostGroupCreate)
+		apiv1.PUT("/cmdb/host-groups/:id", api.HostGroupUpdate)
+		apiv1.DELETE("/cmdb/host-groups/:id", api.HostGroupDelete)
+
+		// 主机管理
+		apiv1.GET("/cmdb/hosts", api.HostsList)
+		apiv1.GET("/cmdb/hosts/template", api.ExportTemplate)
+		apiv1.POST("/cmdb/hosts", api.HostCreate)
+		apiv1.PUT("/cmdb/hosts/:id", api.HostUpdate)
+		apiv1.DELETE("/cmdb/hosts/:id", api.HostDelete)
+		apiv1.POST("/cmdb/hosts/deletes", api.HostBatchDelete)
+		// 未完成
+		apiv1.POST("/cmdb/host/import", api.HostsImport)
+		apiv1.POST("/cmdb/host/sync", api.SyncCloud)
+
+		// ssh管理
 		apiv1.POST("/cmdb/ssh/command", api.SshCommand)
-		apiv1.POST("/cmdb/ssh/createFile", api.SshcreateFile)
-
 		apiv1.GET("/cmdb/ssh/webssh", api.VisitorWebsocketServer)
+		// sftp相关路由
+		apiv1.GET("/cmdb/sftp/list", api.SftpListDirectory)
+		apiv1.POST("/cmdb/sftp/upload", api.SftpUploadFile)
+		apiv1.GET("/cmdb/sftp/download", api.SftpDownloadFile)
+		apiv1.POST("/cmdb/sftp/mkdir", api.SftpCreateDirectory)
+		apiv1.POST("/cmdb/sftp/delete", api.SftpDeletePath)
 
 		apiv1.POST("/script/addScript", api.AddScript)
 		apiv1.POST("/script/getScript", api.GetScript)
