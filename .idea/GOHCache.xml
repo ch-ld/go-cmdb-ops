@@ -348,6 +348,13 @@
             </set>
           </value>
         </entry>
+        <entry key="excelReader">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="flowStruct">
           <value>
             <set>
@@ -472,7 +479,7 @@
         <entry key="file://$PROJECT_DIR$/api/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836410" />
+              <option name="lastModified" value="1735203165198" />
               <option name="schema">
                 <list>
                   <option value="Response" />
@@ -646,7 +653,7 @@
         <entry key="file://$PROJECT_DIR$/models/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836637" />
+              <option name="lastModified" value="1735202438487" />
               <option name="schema">
                 <list>
                   <option value="Host" />
@@ -658,7 +665,7 @@
         <entry key="file://$PROJECT_DIR$/models/host_group.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836638" />
+              <option name="lastModified" value="1735193522694" />
               <option name="schema">
                 <list>
                   <option value="HostGroup" />
@@ -900,7 +907,7 @@
         <entry key="file://$PROJECT_DIR$/router/router.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735183077742" />
+              <option name="lastModified" value="1735199694894" />
             </ScannedPath>
           </value>
         </entry>
@@ -928,12 +935,13 @@
         <entry key="file://$PROJECT_DIR$/service/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836646" />
+              <option name="lastModified" value="1735202438498" />
               <option name="schema">
                 <list>
                   <option value="CreateHostInput" />
                   <option value="UpdateHostInput" />
                   <option value="ListHostInput" />
+                  <option value="excelReader" />
                 </list>
               </option>
             </ScannedPath>
@@ -1171,6 +1179,7 @@
         <entry key="deployment" value="Deployment" />
         <entry key="etcd_bak" value="EtcdBak" />
         <entry key="etcd_group" value="EtcdGroup" />
+        <entry key="excel_reader" value="excelReader" />
         <entry key="file_info" value="FileInfo" />
         <entry key="flow" value="Flow" />
         <entry key="flow_struct" value="flowStruct" />

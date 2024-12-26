@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -74,12 +75,40 @@ func HostCreate(host *Host) error {
 	})
 }
 
-// 批量创建主机
+func ValidateHost(host *Host, lineNum int) error {
+	if host.HostGroupID == 0 {
+		return fmt.Errorf("第 %d 行主机组ID无效", lineNum)
+	}
+	if host.Hostname == "" {
+		return fmt.Errorf("第 %d 行主机名不能为空", lineNum)
+	}
+	if host.PrivateIP == "" {
+		return fmt.Errorf("第 %d 行私有IP不能为空", lineNum)
+	}
+	if host.SSHPort <= 0 || host.SSHPort > 65535 {
+		return fmt.Errorf("第 %d 行SSH端口范围无效", lineNum)
+	}
+	return nil
+}
+
+// 修改 HostBatchCreate 函数
 func HostBatchCreate(hosts []*Host) error {
+	if len(hosts) == 0 {
+		return fmt.Errorf("没有要导入的主机数据")
+	}
+
 	return db.Transaction(func(tx *gorm.DB) error {
-		// 1. 批量创建主机
-		if err := tx.Create(hosts).Error; err != nil {
-			return err
+		// 批量创建前进行验证
+		for i, host := range hosts {
+			if err := ValidateHost(host, i+1); err != nil {
+				return err
+			}
+		}
+		// 使用循环逐个创建，以便更好地处理错误
+		for i, host := range hosts {
+			if err := tx.Create(host).Error; err != nil {
+				return fmt.Errorf("创建第 %d 条记录失败: %v", i+1, err)
+			}
 		}
 		// 2. 统计并更新每个主机组的计数
 		groupCounts := make(map[uint]int64)
@@ -97,6 +126,30 @@ func HostBatchCreate(hosts []*Host) error {
 		return nil
 	})
 }
+
+// 批量创建主机
+//func HostBatchCreate(hosts []*Host) error {
+//	return db.Transaction(func(tx *gorm.DB) error {
+//		// 1. 批量创建主机
+//		if err := tx.Create(hosts).Error; err != nil {
+//			return err
+//		}
+//		// 2. 统计并更新每个主机组的计数
+//		groupCounts := make(map[uint]int64)
+//		for _, host := range hosts {
+//			groupCounts[host.HostGroupID]++
+//		}
+//		// 3. 更新主机组计数
+//		for groupID, count := range groupCounts {
+//			if err := tx.Model(&HostGroup{}).
+//				Where("id = ?", groupID).
+//				Update("host_count", gorm.Expr("host_count + ?", count)).Error; err != nil {
+//				return err
+//			}
+//		}
+//		return nil
+//	})
+//}
 
 // 查询主机列表
 func HostsList(params map[string]interface{}, offset, limit int) ([]Host, int64, error) {

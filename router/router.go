@@ -66,13 +66,12 @@ func InitRouter() {
 
 		// 主机管理
 		apiv1.GET("/cmdb/hosts", api.HostsList)
-		apiv1.GET("/cmdb/hosts/template", api.ExportTemplate)
 		apiv1.POST("/cmdb/hosts", api.HostCreate)
 		apiv1.PUT("/cmdb/hosts/:id", api.HostUpdate)
 		apiv1.DELETE("/cmdb/hosts/:id", api.HostDelete)
 		apiv1.POST("/cmdb/hosts/deletes", api.HostBatchDelete)
+		apiv1.POST("/cmdb/hosts/import", api.HostsImport)
 		// 未完成
-		apiv1.POST("/cmdb/host/import", api.HostsImport)
 		apiv1.POST("/cmdb/host/sync", api.SyncCloud)
 
 		// ssh管理

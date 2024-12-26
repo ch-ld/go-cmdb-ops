@@ -54,3 +54,9 @@ func GetByID(id uint) (*HostGroup, error) {
 	err := db.First(&group, id).Error
 	return &group, err
 }
+
+func GetByName(name string) (uint, error) {
+	var group HostGroup
+	err := db.Where("name = ?", name).First(&group).Error
+	return group.ID, err
+}
