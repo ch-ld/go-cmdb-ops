@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="Alert">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/prometheus/alert.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ClientIP">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/svc.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ClusterConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/kubeconfig.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Cmdb">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/cmdb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Container">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/container.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreateHostGroupInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CreateHostInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DeleteRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/navigation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Deployment">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/deployment.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="EtcdBak">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/etcdbak.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="EtcdGroup">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/etcd.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FileInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/sftp.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Flow">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/goflow/goflow.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Host">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/host.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="HostGroup">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/host_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Job">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/job.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="JobGroup">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/job_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Jobhistory">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/jobhistory.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="KubeConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/kubeconfig.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Link">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/navigation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ListHostGroupsInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ListHostInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Menu">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/menu.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Message">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/prometheus/alert.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="NameSpace">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/namespace.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Navigation">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/navigation.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Node">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/node.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="NodeMetrics">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/node.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Notification">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/prometheus/alert.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Pod">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/pods.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Quota">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/quotas.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Response">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/host.go" />
+              <option value="file://$PROJECT_DIR$/api/host_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Result">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/user.go" />
+              <option value="file://$PROJECT_DIR$/utils/result/result.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Role">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/role.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RollingUpdateStrategy">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/deployment.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SFTPClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/sftp.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SSHClientConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/command.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ScriptManager">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/ScriptManager.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SessionAffinityConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/svc.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SftpCmd">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/ssh.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SshCmd">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/ssh.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Strategy">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/deployment.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Svc">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/k8s/svc.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Turn">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/webssh.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateHostGroupInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host_group.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UpdateHostInput">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/models/user.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="WsConnection">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/webssh_pod.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="WsMessage">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/webssh_pod.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="flowStruct">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/goflow/goflow.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="query">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/apis_k8s/pods.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="streamHandler">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/webssh_pod.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="xtermMessage">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/utils/ssh/webssh_pod.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://C:/Program Files/Go/src/builtin/builtin.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1724936184000" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/ScriptManager.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836407" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/api_prom/alert.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836407" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/apis_k8s/deployment.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836408" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/apis_k8s/namespace.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836408" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/apis_k8s/nodes.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836408" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/apis_k8s/pods.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836409" />
+              <option name="schema">
+                <list>
+                  <option value="query" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/apis_k8s/svc.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836409" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/cmdb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836409" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/etcd.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836409" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/etcd_bak.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836410" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/flow.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836410" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/host.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836410" />
+              <option name="schema">
+                <list>
+                  <option value="Response" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/host_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836411" />
+              <option name="schema">
+                <list>
+                  <option value="Response" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/job.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836411" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/job_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836411" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/kubeconfig.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836412" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/navigation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836412" />
+              <option name="schema">
+                <list>
+                  <option value="DeleteRequest" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/role.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836412" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/ssh.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836412" />
+              <option name="schema">
+                <list>
+                  <option value="SshCmd" />
+                  <option value="SftpCmd" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/user.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836413" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/api/webssh.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836413" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/conf/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836413" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836633" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/middleware/cors.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836634" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/middleware/jaeger.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836634" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/middleware/token.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836635" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/ScriptManager.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836636" />
+              <option name="schema">
+                <list>
+                  <option value="ScriptManager" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/cmdb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836636" />
+              <option name="schema">
+                <list>
+                  <option value="Cmdb" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/etcd.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836636" />
+              <option name="schema">
+                <list>
+                  <option value="EtcdGroup" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/etcdbak.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836637" />
+              <option name="schema">
+                <list>
+                  <option value="EtcdBak" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/host.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836637" />
+              <option name="schema">
+                <list>
+                  <option value="Host" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/host_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836638" />
+              <option name="schema">
+                <list>
+                  <option value="HostGroup" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/initdata.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836638" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/job.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836640" />
+              <option name="schema">
+                <list>
+                  <option value="Job" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/job_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836640" />
+              <option name="schema">
+                <list>
+                  <option value="JobGroup" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/jobhistory.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836640" />
+              <option name="schema">
+                <list>
+                  <option value="Jobhistory" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/cluster.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836641" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/cluster2.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836641" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/container.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836641" />
+              <option name="schema">
+                <list>
+                  <option value="Container" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/deployment.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836641" />
+              <option name="schema">
+                <list>
+                  <option value="Deployment" />
+                  <option value="Strategy" />
+                  <option value="RollingUpdateStrategy" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/namespace.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836642" />
+              <option name="schema">
+                <list>
+                  <option value="NameSpace" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/node.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836642" />
+              <option name="schema">
+                <list>
+                  <option value="Node" />
+                  <option value="NodeMetrics" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/pods.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836642" />
+              <option name="schema">
+                <list>
+                  <option value="Pod" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/quotas.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836642" />
+              <option name="schema">
+                <list>
+                  <option value="Quota" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/k8s/svc.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836643" />
+              <option name="schema">
+                <list>
+                  <option value="ClientIP" />
+                  <option value="SessionAffinityConfig" />
+                  <option value="Svc" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/kubeconfig.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836643" />
+              <option name="schema">
+                <list>
+                  <option value="KubeConfig" />
+                  <option value="ClusterConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/menu.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836644" />
+              <option name="schema">
+                <list>
+                  <option value="Menu" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/model.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836644" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/navigation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836644" />
+              <option name="schema">
+                <list>
+                  <option value="Navigation" />
+                  <option value="Link" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/prometheus/alert.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836645" />
+              <option name="schema">
+                <list>
+                  <option value="Message" />
+                  <option value="Alert" />
+                  <option value="Notification" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/role.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836645" />
+              <option name="schema">
+                <list>
+                  <option value="Role" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/models/user.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836645" />
+              <option name="schema">
+                <list>
+                  <option value="User" />
+                  <option value="Result" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/router/router.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735183077742" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/ScriptManager.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836646" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/cmdb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836646" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/etcd.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836646" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/host.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836646" />
+              <option name="schema">
+                <list>
+                  <option value="CreateHostInput" />
+                  <option value="UpdateHostInput" />
+                  <option value="ListHostInput" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/host_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836647" />
+              <option name="schema">
+                <list>
+                  <option value="CreateHostGroupInput" />
+                  <option value="UpdateHostGroupInput" />
+                  <option value="ListHostGroupsInput" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/job.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836647" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/job_group.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836648" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/kubeconfig.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836649" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/navigation.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836650" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/prometheus/alert.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836650" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/role.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836651" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/service_k8s/deployment.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836652" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/service_k8s/namespace.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836652" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/service_k8s/nodes.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836652" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/service_k8s/pods.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836653" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/service_k8s/svc.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836653" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/service/user.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836653" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/common/common.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836654" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/goflow/goflow.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836654" />
+              <option name="schema">
+                <list>
+                  <option value="Flow" />
+                  <option value="flowStruct" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/jaeger.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836654" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/k8s/cluster.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836655" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/msg/msg.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836655" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/result/result.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836655" />
+              <option name="schema">
+                <list>
+                  <option value="Result" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/schedule/schedule.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836655" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/ssh/command.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836657" />
+              <option name="schema">
+                <list>
+                  <option value="SSHClientConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/ssh/remotecommand.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836657" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/ssh/sftp.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836657" />
+              <option name="schema">
+                <list>
+                  <option value="SFTPClient" />
+                  <option value="FileInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/ssh/webssh.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836657" />
+              <option name="schema">
+                <list>
+                  <option value="Turn" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/utils/ssh/webssh_pod.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1735182836658" />
+              <option name="schema">
+                <list>
+                  <option value="WsMessage" />
+                  <option value="WsConnection" />
+                  <option value="streamHandler" />
+                  <option value="xtermMessage" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="alert" value="Alert" />
+        <entry key="client_ip" value="ClientIP" />
+        <entry key="cluster_config" value="ClusterConfig" />
+        <entry key="cmdb" value="Cmdb" />
+        <entry key="container" value="Container" />
+        <entry key="create_host_group_input" value="CreateHostGroupInput" />
+        <entry key="create_host_input" value="CreateHostInput" />
+        <entry key="delete_request" value="DeleteRequest" />
+        <entry key="deployment" value="Deployment" />
+        <entry key="etcd_bak" value="EtcdBak" />
+        <entry key="etcd_group" value="EtcdGroup" />
+        <entry key="file_info" value="FileInfo" />
+        <entry key="flow" value="Flow" />
+        <entry key="flow_struct" value="flowStruct" />
+        <entry key="host" value="Host" />
+        <entry key="host_group" value="HostGroup" />
+        <entry key="job" value="Job" />
+        <entry key="job_group" value="JobGroup" />
+        <entry key="jobhistory" value="Jobhistory" />
+        <entry key="kube_config" value="KubeConfig" />
+        <entry key="link" value="Link" />
+        <entry key="list_host_groups_input" value="ListHostGroupsInput" />
+        <entry key="list_host_input" value="ListHostInput" />
+        <entry key="menu" value="Menu" />
+        <entry key="message" value="Message" />
+        <entry key="name_space" value="NameSpace" />
+        <entry key="navigation" value="Navigation" />
+        <entry key="node" value="Node" />
+        <entry key="node_metrics" value="NodeMetrics" />
+        <entry key="notification" value="Notification" />
+        <entry key="pod" value="Pod" />
+        <entry key="query" value="query" />
+        <entry key="quota" value="Quota" />
+        <entry key="response" value="Response" />
+        <entry key="result" value="Result" />
+        <entry key="role" value="Role" />
+        <entry key="rolling_update_strategy" value="RollingUpdateStrategy" />
+        <entry key="script_manager" value="ScriptManager" />
+        <entry key="session_affinity_config" value="SessionAffinityConfig" />
+        <entry key="sftp_client" value="SFTPClient" />
+        <entry key="sftp_cmd" value="SftpCmd" />
+        <entry key="ssh_client_config" value="SSHClientConfig" />
+        <entry key="ssh_cmd" value="SshCmd" />
+        <entry key="strategy" value="Strategy" />
+        <entry key="stream_handler" value="streamHandler" />
+        <entry key="svc" value="Svc" />
+        <entry key="turn" value="Turn" />
+        <entry key="update_host_group_input" value="UpdateHostGroupInput" />
+        <entry key="update_host_input" value="UpdateHostInput" />
+        <entry key="user" value="User" />
+        <entry key="ws_connection" value="WsConnection" />
+        <entry key="ws_message" value="WsMessage" />
+        <entry key="xterm_message" value="xtermMessage" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1735182934264" />
+  </component>
+</project>
