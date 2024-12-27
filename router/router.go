@@ -47,9 +47,9 @@ func InitRouter() {
 		apiv1.POST("/user/info", api.Info)
 
 		// 角色管理
-		apiv1.GET("/user/getRole", api.GetRole)
-		apiv1.POST("/user/delRole", api.DelRole)
-		apiv1.POST("/user/addRole", api.AddRole)
+		apiv1.GET("/user/getRole", api.RoleGet)
+		apiv1.POST("/user/delRole", api.RoleDel)
+		apiv1.POST("/user/addRole", api.RoleAdd)
 
 		// 导航栏系统
 		apiv1.GET("/home/navigation", api.GetNavigationRecords)
@@ -69,10 +69,11 @@ func InitRouter() {
 		apiv1.POST("/cmdb/hosts", api.HostCreate)
 		apiv1.PUT("/cmdb/hosts/:id", api.HostUpdate)
 		apiv1.DELETE("/cmdb/hosts/:id", api.HostDelete)
-		apiv1.POST("/cmdb/hosts/deletes", api.HostBatchDelete)
+		apiv1.POST("/cmdb/hosts/deletes", api.HostsBatchDelete)
 		apiv1.POST("/cmdb/hosts/import", api.HostsImport)
+		apiv1.GET("/cmdb/hosts/check/:id", api.HostsCheck)
 		// 未完成
-		apiv1.POST("/cmdb/host/sync", api.SyncCloud)
+		apiv1.POST("/cmdb/hosts/sync", api.HostsSyncCloud)
 
 		// ssh管理
 		apiv1.POST("/cmdb/ssh/command", api.SshCommand)

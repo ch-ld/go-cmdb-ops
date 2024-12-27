@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func GetRole(c *gin.Context) {
+func RoleGet(c *gin.Context) {
 	list, err := service.GetRole()
 	if err != nil {
 		c.JSON(http.StatusOK, (&result.Result{}).Error(msg.ERROR, err.Error(), msg.GetErrMsg(msg.ERROR)))
@@ -19,7 +19,7 @@ func GetRole(c *gin.Context) {
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(code, list, msg.GetErrMsg(code)))
 }
 
-func DelRole(c *gin.Context) {
+func RoleDel(c *gin.Context) {
 	var data models.Role
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusOK, (&result.Result{}).Error(msg.ERROR, err.Error(), msg.GetErrMsg(msg.ERROR)))
@@ -30,7 +30,7 @@ func DelRole(c *gin.Context) {
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(code, data, msg.GetErrMsg(code)))
 }
 
-func AddRole(c *gin.Context) {
+func RoleAdd(c *gin.Context) {
 	var data models.Role
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusOK, (&result.Result{}).Error(msg.ERROR, err.Error(), msg.GetErrMsg(msg.ERROR)))

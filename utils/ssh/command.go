@@ -55,6 +55,7 @@ func SshCommand(conf *SSHClientConfig, command string) (string, error) {
 
 	return string(output), nil
 }
+
 func CreateFileOnRemoteServer(sshConfig *SSHClientConfig, filename, content string) (int, error) {
 	absoluteFilePath := "/tmp/" + filename
 
@@ -74,20 +75,3 @@ func CreateFileOnRemoteServer(sshConfig *SSHClientConfig, filename, content stri
 
 	return 200, nil
 }
-
-//func CreateFileOnRemoteServer(sshConfig *SSHClientConfig, filename, content string) (int,error) {
-//	absoluteFilePath := "/tmp/" + filename
-//
-//	command := fmt.Sprintf("echo %q > %s", content, absoluteFilePath)
-//
-//	output, err := SshCommand(sshConfig, command)
-//	if err != nil {
-//		fmt.Println("SSH Error:", err)
-//		return 400,fmt.Errorf("Failed to execute SSH command: %v", err)
-//	}
-//
-//
-//	fmt.Println("SSH Output:", output) // Optional: Print the SSH output
-//
-//	return 200, nil
-//}

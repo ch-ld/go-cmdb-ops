@@ -12,6 +12,15 @@ import (
 	"strings"
 )
 
+// SyncCloudRequest 同步云主机请求结构
+type SyncCloudRequest struct {
+	Provider     string   `json:"provider" binding:"required,oneof=aliyun aws"`
+	AccessKey    string   `json:"accessKey" binding:"required"`
+	AccessSecret string   `json:"accessSecret" binding:"required"`
+	Regions      []string `json:"regions" binding:"required,min=1"`
+	HostGroupId  int      `json:"hostGroupId" binding:"required"`
+}
+
 // List 获取主机列表
 func HostsList(c *gin.Context) {
 	var query service.ListHostInput
@@ -55,17 +64,6 @@ func HostCreate(c *gin.Context) {
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(code, host, msg.GetErrMsg(code)))
 }
 
-// Get 获取主机详情
-//func  Get(c *gin.Context) {
-//	id := c.Param("id")
-//	host, err := h.hostService.Get(id)
-//	if err != nil {
-//		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-//		return
-//	}
-//	c.JSON(http.StatusOK, host)
-//}
-
 // Update 更新主机
 func HostUpdate(c *gin.Context) {
 	id := c.Param("id")
@@ -101,7 +99,7 @@ func HostDelete(c *gin.Context) {
 }
 
 // BatchDelete 批量删除主机
-func HostBatchDelete(c *gin.Context) {
+func HostsBatchDelete(c *gin.Context) {
 	var input struct {
 		IDs []int `json:"ids" binding:"required"`
 	}
@@ -173,6 +171,44 @@ func HostsImport(c *gin.Context) {
 	c.JSON(http.StatusOK, (&result.Result{}).Ok(msg.SUCCSE, nil, "导入成功"))
 }
 
+func HostsCheck(c *gin.Context) {
+	id := c.Param("id")
+	intID, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "无效的 ID"})
+		return
+	}
+	err = service.CollectHostInfo(uint(intID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, (&result.Result{}).Ok(msg.ERROR, nil, err.Error()))
+		return
+	}
+
+	c.JSON(http.StatusOK, (&result.Result{}).Ok(msg.SUCCSE, nil, "检测完成"))
+}
+
+// SyncCloud 同步云主机
+func HostsSyncCloud(c *gin.Context) {
+	var req SyncCloudRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusInternalServerError, (&result.Result{}).Ok(msg.ERROR, nil, "参数验证失败"))
+		return
+	}
+
+	config := map[string]string{
+		"accessKey":    req.AccessKey,
+		"accessSecret": req.AccessSecret,
+		"regions":      strings.Join(req.Regions, ","),
+	}
+
+	if err := service.SyncCloudHosts(req.Provider, config, req.HostGroupId); err != nil {
+		c.JSON(http.StatusInternalServerError, (&result.Result{}).Ok(msg.ERROR, nil, err.Error()))
+		return
+	}
+
+	c.JSON(http.StatusOK, (&result.Result{}).Ok(msg.SUCCSE, nil, "同步成功"))
+}
+
 // 生成Excel模版文件 前端实现
 //func ExportTemplate(c *gin.Context) {
 //	// 生成Excel模板
@@ -198,19 +234,13 @@ func HostsImport(c *gin.Context) {
 //	c.Data(http.StatusOK, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", buffer.Bytes())
 //}
 
-// SyncCloud 同步云主机
-func SyncCloud(c *gin.Context) {
-	//var input service.SyncCloudHostsInput
-	//if err := c.ShouldBindJSON(&input); err != nil {
-	//	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	//	return
-	//}
-
-	//err := service.SyncCloudHosts(&input)
-	//if err != nil {
-	//	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	//	return
-	//}
-
-	c.JSON(http.StatusOK, gin.H{"message": "success"})
-}
+// Get 获取主机详情
+//func  Get(c *gin.Context) {
+//	id := c.Param("id")
+//	host, err := h.hostService.Get(id)
+//	if err != nil {
+//		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+//		return
+//	}
+//	c.JSON(http.StatusOK, host)
+//}

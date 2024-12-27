@@ -60,5 +60,4 @@ func ExecuteRemoteCommand(script *models.ScriptManager, cmdb *models.Cmdb) (stri
 
 	result := fmt.Sprintf("命令执行成功:\n%s", output)
 	return result, nil
-
 }

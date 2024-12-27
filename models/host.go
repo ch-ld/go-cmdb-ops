@@ -27,7 +27,7 @@ const (
 type Host struct {
 	ID          uint        `gorm:"primarykey" json:"id"`
 	HostGroupID uint        `gorm:"not null;index" json:"hostGroupId"`
-	Hostname    string      `gorm:"type:varchar(100);not null" json:"hostname"`
+	Hostname    string      `gorm:"type:varchar(100);not null;unique" json:"hostname"`
 	PrivateIP   string      `gorm:"type:varchar(15)" json:"privateIp"`
 	PublicIP    string      `gorm:"type:varchar(15)" json:"publicIp"`
 	SSHPort     int         `gorm:"default:22" json:"sshPort"`
@@ -48,11 +48,11 @@ type Host struct {
 	KernelVersion   string     `gorm:"type:varchar(50)" json:"kernelVersion"`
 	Status          HostStatus `gorm:"type:varchar(20);default:'unknown'" json:"status"`
 	Source          HostSource `gorm:"type:varchar(20);not null" json:"source"`
-	CloudInstanceID string     `gorm:"type:varchar(100)" json:"cloudInstanceId"`
+	CloudInstanceID string     `gorm:"type:varchar(100);unique" json:"cloudInstanceId"`
 	Region          string     `gorm:"type:varchar(50)" json:"region"`
 	Tags            string     `gorm:"type:text" json:"tags"`
 	Description     string     `gorm:"type:varchar(255)" json:"description"`
-	LastCheckTime   *time.Time `json:"lastCheckTime"`
+	LastCheckTime   time.Time  `json:"lastCheckTime"`
 	CreatedAt       time.Time  `json:"createdAt"`
 	UpdatedAt       time.Time  `json:"updatedAt"`
 	HostGroup       HostGroup  `gorm:"foreignKey:HostGroupID" json:"hostGroup"`
@@ -75,23 +75,7 @@ func HostCreate(host *Host) error {
 	})
 }
 
-func ValidateHost(host *Host, lineNum int) error {
-	if host.HostGroupID == 0 {
-		return fmt.Errorf("第 %d 行主机组ID无效", lineNum)
-	}
-	if host.Hostname == "" {
-		return fmt.Errorf("第 %d 行主机名不能为空", lineNum)
-	}
-	if host.PrivateIP == "" {
-		return fmt.Errorf("第 %d 行私有IP不能为空", lineNum)
-	}
-	if host.SSHPort <= 0 || host.SSHPort > 65535 {
-		return fmt.Errorf("第 %d 行SSH端口范围无效", lineNum)
-	}
-	return nil
-}
-
-// 修改 HostBatchCreate 函数
+// 批量创建主机
 func HostBatchCreate(hosts []*Host) error {
 	if len(hosts) == 0 {
 		return fmt.Errorf("没有要导入的主机数据")
@@ -126,30 +110,6 @@ func HostBatchCreate(hosts []*Host) error {
 		return nil
 	})
 }
-
-// 批量创建主机
-//func HostBatchCreate(hosts []*Host) error {
-//	return db.Transaction(func(tx *gorm.DB) error {
-//		// 1. 批量创建主机
-//		if err := tx.Create(hosts).Error; err != nil {
-//			return err
-//		}
-//		// 2. 统计并更新每个主机组的计数
-//		groupCounts := make(map[uint]int64)
-//		for _, host := range hosts {
-//			groupCounts[host.HostGroupID]++
-//		}
-//		// 3. 更新主机组计数
-//		for groupID, count := range groupCounts {
-//			if err := tx.Model(&HostGroup{}).
-//				Where("id = ?", groupID).
-//				Update("host_count", gorm.Expr("host_count + ?", count)).Error; err != nil {
-//				return err
-//			}
-//		}
-//		return nil
-//	})
-//}
 
 // 查询主机列表
 func HostsList(params map[string]interface{}, offset, limit int) ([]Host, int64, error) {
@@ -194,11 +154,11 @@ func HostGetByID(id uint) (*Host, error) {
 func HostUpdate(id string, updates Host) (*Host, error) {
 	var host Host
 	if err := db.First(&host, id).Error; err != nil {
-		return nil, err
+		return nil, fmt.Errorf("查询主机失败: %v", err)
 	}
 
 	if err := db.Model(&host).Updates(updates).Error; err != nil {
-		return nil, err
+		return nil, fmt.Errorf("更新主机失败: %v", err)
 	}
 
 	return &host, nil
@@ -271,4 +231,21 @@ func HostBatchDelete(ids []uint) error {
 
 		return nil
 	})
+}
+
+// ValidateHost 验证主机数据
+func ValidateHost(host *Host, lineNum int) error {
+	if host.HostGroupID == 0 {
+		return fmt.Errorf("第 %d 行主机组ID无效", lineNum)
+	}
+	if host.Hostname == "" {
+		return fmt.Errorf("第 %d 行主机名不能为空", lineNum)
+	}
+	if host.PrivateIP == "" {
+		return fmt.Errorf("第 %d 行私有IP不能为空", lineNum)
+	}
+	if host.SSHPort <= 0 || host.SSHPort > 65535 {
+		return fmt.Errorf("第 %d 行SSH端口范围无效", lineNum)
+	}
+	return nil
 }

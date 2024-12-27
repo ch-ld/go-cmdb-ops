@@ -5,15 +5,19 @@ import (
 	"cmdb-ops-flow/conf"
 	"cmdb-ops-flow/models"
 	"cmdb-ops-flow/utils/common"
+	"cmdb-ops-flow/utils/ssh"
 	"encoding/base64"
 	"encoding/csv"
 	"errors"
 	"fmt"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/ecs"
 	"github.com/axgle/mahonia"
 	"github.com/xuri/excelize/v2"
 	"io"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 )
 
 type CreateHostInput struct {
@@ -166,33 +170,230 @@ func HostUpdate(id string, input *UpdateHostInput) (*models.Host, error) {
 }
 
 // 收集主机信息
-func CollectHostInfo(host *models.Host) {
-	//sshClient, err := s.createSSHClient(host)
+func CollectHostInfo(hostId uint) error {
+	host, _ := models.HostGetByID(hostId)
+	key, err := base64.StdEncoding.DecodeString(conf.Encryptkey)
+	password, err := common.Decrypt(key, host.SSHPassword)
+	if err != nil {
+		fmt.Println("解密失败:", err)
+		return err
+	}
+	config := &ssh.SSHClientConfig{
+		Timeout:   time.Second * 5,
+		IP:        host.PrivateIP,
+		Port:      host.SSHPort,
+		UserName:  host.SSHUser,
+		Password:  password,
+		AuthModel: "PASSWORD",
+	}
+
+	//// 获取主机信息
+	//cpu, err := ssh.SshCommand(config, "nproc")
 	//if err != nil {
-	//	s.updateHostStatus(host.ID, models.HostStatusOffline)
-	//	return
+	//	return err
 	//}
-	//defer sshClient.Close()
-	//
-	//// 更新主机状态为在线
-	//s.updateHostStatus(host.ID, models.HostStatusOnline)
-	//
-	//// 收集系统信息
-	//info, err := s.collectSystemInfo(sshClient)
+	//cpuInt, err := strconv.Atoi(strings.TrimSpace(cpu))
 	//if err != nil {
-	//	return
+	//	return fmt.Errorf("cpu转换失败: %v", err)
+	//}
+	//cpuUsage, err := ssh.SshCommand(config, "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\\([0-9.]*\\)%* id.*/\\1/' | awk '{print 100 - $1}'")
+	//if err != nil {
+	//	return err
+	//}
+	//cpuUsageFloat, err := strconv.ParseFloat(strings.TrimSpace(cpuUsage), 64)
+	//if err != nil {
+	//	return fmt.Errorf("cpuUsage转换失败: %v", err)
+	//}
+	//memory, err := ssh.SshCommand(config, "free -m | awk 'NR==2{printf  $2}'")
+	//if err != nil {
+	//	return err
+	//}
+	//memoryInt, err := strconv.Atoi(strings.TrimSpace(memory))
+	//if err != nil {
+	//	return fmt.Errorf("memory转换失败: %v", err)
+	//}
+	//memoryUsage, err := ssh.SshCommand(config, "free | grep Mem | awk '{print $3/$2 * 100.0}'")
+	//if err != nil {
+	//	return err
+	//}
+	//memoryUsageFloat, err := strconv.ParseFloat(strings.TrimSpace(memoryUsage), 64)
+	//if err != nil {
+	//	return fmt.Errorf("memoryUsage转换失败: %v", err)
+	//}
+	//diskSize, err := ssh.SshCommand(config, "df -h | grep '^/dev/' | awk '{print $2}' | head -n 1 | awk -F 'G' '{print $1}'")
+	//if err != nil {
+	//	return err
+	//}
+	//diskSizeInt, err := strconv.Atoi(strings.TrimSpace(diskSize))
+	//if err != nil {
+	//	return fmt.Errorf("diskSize转换失败: %v", err)
+	//}
+	//diskUsage, err := ssh.SshCommand(config, "df -h | grep '^/dev/' | awk '{print $3}' | head -n 1| awk -F 'G' '{print $1}'")
+	//if err != nil {
+	//	return err
+	//}
+	//diskUsageFloat, err := strconv.ParseFloat(strings.TrimSpace(diskUsage), 64)
+	//if err != nil {
+	//	return fmt.Errorf("diskUsage转换失败: %v", err)
+	//}
+	//osType, err := ssh.SshCommand(config, "uname -o | awk -F '/' '{print $NF}'")
+	//if err != nil {
+	//	return err
+	//}
+	//osVersion, err := ssh.SshCommand(config, "lsb_release -d | cut -f2")
+	//if err != nil {
+	//	return err
+	//}
+	//kernelVersion, err := ssh.SshCommand(config, "uname -r")
+	//if err != nil {
+	//	return err
 	//}
 	//
-	//// 更新主机信息
-	//updates := map[string]interface{}{
-	//	"cpu":           info.CPU,
-	//	"memory":        info.Memory,
-	//	"diskSize":      info.DiskSize,
-	//	"osVersion":     info.OSVersion,
-	//	"kernelVersion": info.KernelVersion,
-	//	"lastCheckTime": time.Now(),
+	//updates := models.Host{
+	//	ID:            hostId,
+	//	CPU:           cpuInt,
+	//	CPUUsage:      cpuUsageFloat,
+	//	Memory:        memoryInt,
+	//	MemoryUsage:   memoryUsageFloat,
+	//	DiskSize:      diskSizeInt,
+	//	DiskUsage:     diskUsageFloat,
+	//	OSType:        strings.TrimSpace(osType),
+	//	OSVersion:     strings.TrimSpace(osVersion),
+	//	KernelVersion: strings.TrimSpace(kernelVersion),
+	//	Status:        models.HostStatusOnline,
+	//	LastCheckTime: time.Now(),
 	//}
-	//s.model.Update(host.ID, updates)
+
+	// 获取主机信息(优化版)
+	// 定义一个结构体来存储结果
+	type MetricResult struct {
+		Value interface{}
+		Err   error
+	}
+	// 创建通道来接收结果
+	results := make(map[string]chan MetricResult)
+	metrics := []string{"cpu", "cpuUsage", "memory", "memoryUsage", "disk", "os"}
+	for _, metric := range metrics {
+		results[metric] = make(chan MetricResult, 1)
+	}
+
+	// CPU 和负载信息
+	go func() {
+		cmd := `nproc && top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\\([0-9.]*\\)%* id.*/\\1/' | awk '{print 100 -$1}'`
+		output, err := ssh.SshCommand(config, cmd)
+		if err != nil {
+			results["cpu"] <- MetricResult{nil, err}
+			results["cpuUsage"] <- MetricResult{nil, err}
+			return
+		}
+
+		lines := strings.Split(strings.TrimSpace(output), "\n")
+		if len(lines) >= 2 {
+			cpu, err := strconv.Atoi(lines[0])
+			results["cpu"] <- MetricResult{cpu, err}
+
+			cpuUsage, err := strconv.ParseFloat(lines[1], 64)
+			results["cpuUsage"] <- MetricResult{cpuUsage, err}
+		}
+	}()
+
+	// 内存信息
+	go func() {
+		cmd := `free -m | awk 'NR==2{printf "%s %s", $2, $3/$2 * 100}'`
+		output, err := ssh.SshCommand(config, cmd)
+		if err != nil {
+			results["memory"] <- MetricResult{nil, err}
+			results["memoryUsage"] <- MetricResult{nil, err}
+			return
+		}
+
+		parts := strings.Fields(output)
+		if len(parts) >= 2 {
+			memory, err := strconv.Atoi(parts[0])
+			results["memory"] <- MetricResult{memory, err}
+
+			memoryUsage, err := strconv.ParseFloat(parts[1], 64)
+			results["memoryUsage"] <- MetricResult{memoryUsage, err}
+		}
+	}()
+
+	// 磁盘信息
+	go func() {
+		cmd := `df / | awk 'NR==2{printf "%d %.2f", $2/1024/1024, $3/$2 * 100}'`
+		output, err := ssh.SshCommand(config, cmd)
+		if err != nil {
+			results["disk"] <- MetricResult{nil, err}
+			return
+		}
+
+		var diskSize int
+		var diskUsage float64
+		_, err = fmt.Sscanf(output, "%d %f", &diskSize, &diskUsage)
+		results["disk"] <- MetricResult{struct {
+			size  int
+			usage float64
+		}{diskSize, diskUsage}, err}
+	}()
+
+	// 操作系统信息
+	go func() {
+		cmd := `echo "$(uname -o | awk -F '/' '{print $NF}')|||$(lsb_release -d | cut -f2)|||$(uname -r)"`
+		output, err := ssh.SshCommand(config, cmd)
+		if err != nil {
+			results["os"] <- MetricResult{nil, err}
+			return
+		}
+
+		parts := strings.Split(strings.TrimSpace(output), "|||")
+		if len(parts) >= 3 {
+			results["os"] <- MetricResult{parts, nil}
+		}
+	}()
+
+	// 收集结果
+	var updates models.Host
+	updates.ID = hostId
+	updates.Status = models.HostStatusOnline
+	updates.LastCheckTime = time.Now()
+
+	// 等待所有结果
+	for metric, ch := range results {
+		result := <-ch
+		if result.Err != nil {
+			return fmt.Errorf("获取%s信息失败: %v", metric, result.Err)
+		}
+
+		switch metric {
+		case "cpu":
+			updates.CPU = result.Value.(int)
+		case "cpuUsage":
+			updates.CPUUsage = result.Value.(float64)
+		case "memory":
+			updates.Memory = result.Value.(int)
+		case "memoryUsage":
+			updates.MemoryUsage = result.Value.(float64)
+		case "disk":
+			disk := result.Value.(struct {
+				size  int
+				usage float64
+			})
+			updates.DiskSize = disk.size
+			updates.DiskUsage = disk.usage
+		case "os":
+			osInfo := result.Value.([]string)
+			updates.OSType = osInfo[0]
+			updates.OSVersion = osInfo[1]
+			updates.KernelVersion = osInfo[2]
+		}
+	}
+
+	// 更新数据库
+	host, err = models.HostUpdate(strconv.Itoa(int(hostId)), updates)
+	if err != nil {
+		return fmt.Errorf("更新主机信息失败: %v", err)
+	}
+
+	return nil
 }
 
 // HostsImport 处理文件导入
@@ -440,8 +641,6 @@ func processHostRecord(record []string, lineNum int) (*models.Host, error) {
 	return host, nil
 }
 
-// validateHost 验证主机记录的完整性
-
 // isValidAuthType 验证认证类型是否有效
 func isValidAuthType(authType string) bool {
 	validTypes := []string{"password", "key"} // 根据实际情况修改
@@ -454,17 +653,38 @@ func isValidAuthType(authType string) bool {
 }
 
 // 同步云主机
-func SyncCloudHosts(provider string, config map[string]string) error {
-	// 实现云主机同步逻辑
-	// 这里需要根据不同的云服务商实现具体的同步逻辑
-	switch provider {
-	case "aliyun":
-		return syncAliyunHosts(config)
-	case "aws":
-		return syncAWSHosts(config)
-	default:
-		return errors.New("unsupported cloud provider")
+func SyncCloudHosts(provider string, config map[string]string, hostGroupId int) error {
+	regions := strings.Split(config["regions"], ",")
+	var wg sync.WaitGroup
+	errChan := make(chan error, len(regions))
+	for _, region := range regions {
+		wg.Add(1)
+		go func(region string) {
+			defer wg.Done()
+			var err error
+			switch provider {
+			case "aliyun":
+				err = syncAliyunHosts(config["accessKey"], config["accessSecret"], region, hostGroupId)
+				//case "aws":
+				//	err = syncAWSHosts(config["accessKey"], config["accessSecret"], region)
+			}
+			if err != nil {
+				errChan <- fmt.Errorf("region %s sync failed: %v", region, err)
+			}
+		}(region)
 	}
+	// 等待所有同步完成
+	wg.Wait()
+	close(errChan)
+	// 收集错误
+	var errors []string
+	for err := range errChan {
+		errors = append(errors, err.Error())
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("同步出现错误: %s", strings.Join(errors, "; "))
+	}
+	return nil
 }
 
 // 查询主机列表
@@ -490,16 +710,120 @@ func HostBatchDelete(ids []uint) error {
 }
 
 // 同步阿里云主机
-func syncAliyunHosts(config map[string]string) error {
-	// 实现阿里云主机同步逻辑
+func syncAliyunHosts(accessKey, accessSecret, region string, hostGroupId int) error {
+	client, err := ecs.NewClientWithAccessKey(region, accessKey, accessSecret)
+	if err != nil {
+		return fmt.Errorf("创建阿里云客户端失败: %v", err)
+	}
+	request := ecs.CreateDescribeInstancesRequest()
+	request.RegionId = region
+	response, err := client.DescribeInstances(request)
+	if err != nil {
+		return fmt.Errorf("获取实例列表失败: %v", err)
+	}
+
+	for _, instance := range response.Instances.Instance {
+		host := &models.Host{
+			Hostname:        instance.InstanceName,
+			HostGroupID:     uint(hostGroupId),
+			PrivateIP:       instance.VpcAttributes.PrivateIpAddress.IpAddress[0],
+			PublicIP:        instance.PublicIpAddress.IpAddress[0],
+			CPU:             instance.Cpu,
+			Memory:          instance.Memory / 1024, // 转换为GB
+			OSType:          instance.OSType,
+			OSVersion:       instance.OSName,
+			Status:          convertAliyunStatus(instance.Status),
+			Source:          models.HostSourceAliyun,
+			CloudInstanceID: instance.InstanceId,
+			Region:          region,
+			Tags:            convertAliyunTags(instance.Tags.Tag),
+			LastCheckTime:   time.Now(),
+		}
+		err := models.HostCreate(host)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
-// 同步AWS主机
-func syncAWSHosts(config map[string]string) error {
-	// 实现AWS主机同步逻辑
-	return nil
+func convertAliyunTags(tags []ecs.Tag) string {
+	var tagPairs []string
+	for _, tag := range tags {
+		tagPairs = append(tagPairs, fmt.Sprintf("%s=%s", tag.TagKey, tag.TagValue))
+	}
+	return strings.Join(tagPairs, ",")
 }
+
+// 辅助函数
+func convertAliyunStatus(status string) models.HostStatus {
+	switch status {
+	case "Running":
+		return models.HostStatusOnline
+	case "Stopped":
+		return models.HostStatusOffline
+	default:
+		return models.HostStatusUnknown
+	}
+}
+
+// 同步AWS主机
+//func syncAWSHosts(accessKey, accessSecret, region string) error {
+//	cfg, err := config.LoadDefaultConfig(context.Background(),
+//		config.WithRegion(region),
+//		config.WithCredentials(credentials.NewStaticCredentialsProvider(
+//			accessKey, accessSecret, "",
+//		)),
+//	)
+//	if err != nil {
+//		return fmt.Errorf("配置AWS客户端失败: %v", err)
+//	}
+//
+//	client := ec2.NewFromConfig(cfg)
+//	input := &ec2.DescribeInstancesInput{}
+//
+//	result, err := client.DescribeInstances(context.Background(), input)
+//	if err != nil {
+//		return fmt.Errorf("获取AWS实例列表失败: %v", err)
+//	}
+//
+//	for _, reservation := range result.Reservations {
+//		for _, instance := range reservation.Instances {
+//			host := &models.Host{
+//				Hostname:        getAWSTagValue(instance.Tags, "Name"),
+//				PrivateIP:       *instance.PrivateIpAddress,
+//				PublicIP:        aws.ToString(instance.PublicIpAddress),
+//				CPU:             int(*instance.CpuOptions.CoreCount),
+//				Memory:          getAWSInstanceMemory(string(instance.InstanceType)),
+//				OSType:          "Linux", // 需要进一步确定
+//				Status:          convertAWSStatus(instance.State.Name),
+//				Source:          models.HostSourceCloud,
+//				CloudInstanceID: *instance.InstanceId,
+//				Region:          region,
+//				Tags:            convertAWSTags(instance.Tags),
+//				LastCheckTime:   time.Now(),
+//			}
+//
+//			// 使用事务保存或更新主机信息
+//			err := models.DB.Transaction(func(tx *gorm.DB) error {
+//				var existingHost models.Host
+//				if err := tx.Where("cloud_instance_id = ?", host.CloudInstanceID).First(&existingHost).Error; err != nil {
+//					if errors.Is(err, gorm.ErrRecordNotFound) {
+//						return tx.Create(host).Error
+//					}
+//					return err
+//				}
+//				return tx.Model(&existingHost).Updates(host).Error
+//			})
+//
+//			if err != nil {
+//				return fmt.Errorf("保存主机信息失败: %v", err)
+//			}
+//		}
+//	}
+//
+//	return nil
+//}
 
 // 前端实现
 //func GetImportTemplate() (*bytes.Buffer, error) {

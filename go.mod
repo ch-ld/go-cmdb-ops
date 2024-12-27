@@ -1,6 +1,8 @@
 module cmdb-ops-flow
 
-go 1.20
+go 1.21
+
+toolchain go1.23.1
 
 require (
 	github.com/bwmarrin/snowflake v0.3.0
@@ -8,7 +10,7 @@ require (
 	github.com/go-ini/ini v1.67.0
 	github.com/gorilla/websocket v1.5.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/opentracing/opentracing-go v1.2.0
+	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b
 	github.com/pkg/sftp v1.13.7
 	github.com/prometheus/client_golang v1.12.1
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
@@ -26,6 +28,8 @@ require (
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
+	github.com/aliyun/alibaba-cloud-sdk-go v1.63.76 // indirect
+	github.com/aws/aws-sdk-go-v2 v1.32.7 // indirect
 	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
@@ -55,6 +59,7 @@ require (
 	github.com/imdario/mergo v0.3.6 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
@@ -100,6 +105,7 @@ require (
 	google.golang.org/grpc v1.41.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
+	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/driver/mysql v1.5.7 // indirect
 	gorm.io/gorm v1.25.12 // indirect

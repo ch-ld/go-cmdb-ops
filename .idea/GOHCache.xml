@@ -171,6 +171,13 @@
             </set>
           </value>
         </entry>
+        <entry key="MetricResult">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/service/host.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="NameSpace">
           <value>
             <set>
@@ -303,6 +310,13 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/models/k8s/svc.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SyncCloudRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/api/host.go" />
             </set>
           </value>
         </entry>
@@ -479,9 +493,10 @@
         <entry key="file://$PROJECT_DIR$/api/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735203165198" />
+              <option name="lastModified" value="1735271673393" />
               <option name="schema">
                 <list>
+                  <option value="SyncCloudRequest" />
                   <option value="Response" />
                 </list>
               </option>
@@ -524,7 +539,7 @@
         <entry key="file://$PROJECT_DIR$/api/navigation.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836412" />
+              <option name="lastModified" value="1735204624524" />
               <option name="schema">
                 <list>
                   <option value="DeleteRequest" />
@@ -536,7 +551,7 @@
         <entry key="file://$PROJECT_DIR$/api/role.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836412" />
+              <option name="lastModified" value="1735204742474" />
             </ScannedPath>
           </value>
         </entry>
@@ -653,7 +668,7 @@
         <entry key="file://$PROJECT_DIR$/models/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735202438487" />
+              <option name="lastModified" value="1735266725262" />
               <option name="schema">
                 <list>
                   <option value="Host" />
@@ -907,7 +922,7 @@
         <entry key="file://$PROJECT_DIR$/router/router.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735199694894" />
+              <option name="lastModified" value="1735267079666" />
             </ScannedPath>
           </value>
         </entry>
@@ -935,12 +950,13 @@
         <entry key="file://$PROJECT_DIR$/service/host.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735202438498" />
+              <option name="lastModified" value="1735271673616" />
               <option name="schema">
                 <list>
                   <option value="CreateHostInput" />
                   <option value="UpdateHostInput" />
                   <option value="ListHostInput" />
+                  <option value="MetricResult" />
                   <option value="excelReader" />
                 </list>
               </option>
@@ -1108,7 +1124,7 @@
         <entry key="file://$PROJECT_DIR$/utils/ssh/command.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836657" />
+              <option name="lastModified" value="1735204624512" />
               <option name="schema">
                 <list>
                   <option value="SSHClientConfig" />
@@ -1120,7 +1136,7 @@
         <entry key="file://$PROJECT_DIR$/utils/ssh/remotecommand.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1735182836657" />
+              <option name="lastModified" value="1735204624541" />
             </ScannedPath>
           </value>
         </entry>
@@ -1194,6 +1210,7 @@
         <entry key="list_host_input" value="ListHostInput" />
         <entry key="menu" value="Menu" />
         <entry key="message" value="Message" />
+        <entry key="metric_result" value="MetricResult" />
         <entry key="name_space" value="NameSpace" />
         <entry key="navigation" value="Navigation" />
         <entry key="node" value="Node" />
@@ -1215,6 +1232,7 @@
         <entry key="strategy" value="Strategy" />
         <entry key="stream_handler" value="streamHandler" />
         <entry key="svc" value="Svc" />
+        <entry key="sync_cloud_request" value="SyncCloudRequest" />
         <entry key="turn" value="Turn" />
         <entry key="update_host_group_input" value="UpdateHostGroupInput" />
         <entry key="update_host_input" value="UpdateHostInput" />
