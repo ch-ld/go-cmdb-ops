@@ -72,8 +72,8 @@ func HostUpdate(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	host, err := service.HostUpdate(id, &input)
+	hostId, _ := strconv.ParseUint(id, 10, 64)
+	host, err := service.HostUpdate(uint(hostId), input)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"time"
@@ -62,7 +63,7 @@ type Host struct {
 func HostCreate(host *Host) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		// 1. 创建主机
-		if err := tx.Create(host).Error; err != nil {
+		if err := tx.Preload("HostGroup").Create(host).Error; err != nil {
 			return err
 		}
 		// 2. 更新主机组计数
@@ -90,7 +91,7 @@ func HostBatchCreate(hosts []*Host) error {
 		}
 		// 使用循环逐个创建，以便更好地处理错误
 		for i, host := range hosts {
-			if err := tx.Create(host).Error; err != nil {
+			if err := tx.Preload("HostGroup").Create(host).Error; err != nil {
 				return fmt.Errorf("创建第 %d 条记录失败: %v", i+1, err)
 			}
 		}
@@ -151,13 +152,13 @@ func HostGetByID(id uint) (*Host, error) {
 }
 
 // 更新主机信息
-func HostUpdate(id string, updates Host) (*Host, error) {
+func HostUpdate(id uint, updates *Host) (*Host, error) {
 	var host Host
-	if err := db.First(&host, id).Error; err != nil {
+	if err := db.Preload("HostGroup").First(&host, id).Error; err != nil {
 		return nil, fmt.Errorf("查询主机失败: %v", err)
 	}
 
-	if err := db.Model(&host).Updates(updates).Error; err != nil {
+	if err := db.Preload("HostGroup").Model(&host).Updates(updates).Error; err != nil {
 		return nil, fmt.Errorf("更新主机失败: %v", err)
 	}
 
@@ -170,19 +171,19 @@ func HostDelete(id uint) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		// 1. 先查询主机，获取HostGroupID
 		var host Host
-		if err := tx.First(&host, id).Error; err != nil {
+		if err := tx.Preload("HostGroup").First(&host, id).Error; err != nil {
 			return err
 		}
 		// 记录HostGroupID
 		hostGroupID := host.HostGroupID
 		// 2. 删除主机
-		if err := tx.Delete(&host).Error; err != nil {
+		if err := tx.Preload("HostGroup").Delete(&host).Error; err != nil {
 			return err
 		}
 
 		// 3. 查询该主机组剩余主机数量
 		var count int64
-		err := tx.Model(&Host{}).Where("host_group_id = ?", hostGroupID).Count(&count).Error
+		err := tx.Preload("HostGroup").Model(&Host{}).Where("host_group_id = ?", hostGroupID).Count(&count).Error
 		if err != nil {
 			return err
 		}
@@ -199,7 +200,7 @@ func HostBatchDelete(ids []uint) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		// 1. 查询要删除的主机，获取涉及的主机组
 		var hosts []Host
-		if err := tx.Find(&hosts, ids).Error; err != nil {
+		if err := tx.Preload("HostGroup").Find(&hosts, ids).Error; err != nil {
 			return err
 		}
 
@@ -210,7 +211,7 @@ func HostBatchDelete(ids []uint) error {
 		}
 
 		// 3. 删除主机
-		if err := tx.Delete(&Host{}, ids).Error; err != nil {
+		if err := tx.Preload("HostGroup").Delete(&Host{}, ids).Error; err != nil {
 			return err
 		}
 
@@ -231,6 +232,21 @@ func HostBatchDelete(ids []uint) error {
 
 		return nil
 	})
+}
+
+// IsHostnameExists 检查主机名是否已存在
+func IsHostnameExists(hostname string) (bool, uint) {
+	var existingHost Host
+	if err := db.Where("hostname = ?", hostname).First(&existingHost).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return false, 0
+		} else {
+			// 其他错误情况
+			return false, 0
+		}
+	}
+	// 找到主机
+	return true, existingHost.ID
 }
 
 // ValidateHost 验证主机数据
